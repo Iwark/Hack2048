@@ -18,6 +18,8 @@
 		FE254BD719597AEC0066BBB7 /* LiveRendering.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE254BC219597AEC0066BBB7 /* LiveRendering.framework */; };
 		FE254BD819597AEC0066BBB7 /* LiveRendering.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FE254BC219597AEC0066BBB7 /* LiveRendering.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		FE254BEB19597F110066BBB7 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE254BEA19597F110066BBB7 /* StartButton.swift */; };
+		FED4766B195C200E005F03BC /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED4766A195C200E005F03BC /* GameViewController.swift */; };
+		FED4766D195C2392005F03BC /* TileLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED4766C195C2392005F03BC /* TileLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +98,8 @@
 		FE254BD219597AEC0066BBB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE254BD319597AEC0066BBB7 /* LiveRenderingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveRenderingTests.swift; sourceTree = "<group>"; };
 		FE254BEA19597F110066BBB7 /* StartButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
+		FED4766A195C200E005F03BC /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		FED4766C195C2392005F03BC /* TileLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileLabel.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				FE254BB71959716D0066BBB7 /* ViewController.swift */,
+				FED4766A195C200E005F03BC /* GameViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -227,6 +232,7 @@
 		FE254BBB1959716D0066BBB7 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				FED4766C195C2392005F03BC /* TileLabel.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -440,7 +446,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FED4766D195C2392005F03BC /* TileLabel.swift in Sources */,
 				FE254BBC1959716D0066BBB7 /* ViewController.swift in Sources */,
+				FED4766B195C200E005F03BC /* GameViewController.swift in Sources */,
 				FE254B9A19596E0A0066BBB7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

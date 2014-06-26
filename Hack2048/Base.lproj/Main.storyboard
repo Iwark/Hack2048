@@ -51,10 +51,10 @@
             </objects>
             <point key="canvasLocation" x="207" y="141"/>
         </scene>
-        <!--View Controller-->
+        <!--Game View Controller-->
         <scene sceneID="FnW-VS-pQS">
             <objects>
-                <viewController id="SIi-gr-cEO" sceneMemberID="viewController">
+                <viewController id="SIi-gr-cEO" customClass="GameViewController" customModule="Hack2048" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kOU-Be-gYV"/>
                         <viewControllerLayoutGuide type="bottom" id="f17-za-ssW"/>
@@ -84,6 +84,9 @@
                         </constraints>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
+                    <connections>
+                        <outlet property="boardView" destination="CD6-52-9gR" id="sWc-Bi-qeU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yHH-UD-8fv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
