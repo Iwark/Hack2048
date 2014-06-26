@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>LiveRendering.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -18,6 +23,16 @@
 			<true/>
 		</dict>
 		<key>FE254BA519596E0A0066BBB7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE254BC119597AEC0066BBB7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FE254BCB19597AEC0066BBB7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
