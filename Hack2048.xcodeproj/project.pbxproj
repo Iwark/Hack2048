@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		9771518A195EDCC00012B786 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97715189195EDCC00012B786 /* Board.swift */; };
 		97A8BC35195EDBE50075644A /* TileLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A8BC34195EDBE50075644A /* TileLabel.swift */; };
-		97AE4542195FB66400EB4022 /* Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AE4541195FB66400EB4022 /* Evaluator.swift */; };
+		97AE4544195FBB7100EB4022 /* AlphaBetaAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AE4543195FBB7100EB4022 /* AlphaBetaAI.swift */; };
+		97AE4546195FBB8200EB4022 /* Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AE4545195FBB8200EB4022 /* Evaluator.swift */; };
 		FE254B9A19596E0A0066BBB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE254B9919596E0A0066BBB7 /* AppDelegate.swift */; };
 		FE254B9F19596E0A0066BBB7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE254B9D19596E0A0066BBB7 /* Main.storyboard */; };
 		FE254BA119596E0A0066BBB7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE254BA019596E0A0066BBB7 /* Images.xcassets */; };
@@ -86,7 +87,8 @@
 /* Begin PBXFileReference section */
 		97715189195EDCC00012B786 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		97A8BC34195EDBE50075644A /* TileLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileLabel.swift; sourceTree = "<group>"; };
-		97AE4541195FB66400EB4022 /* Evaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Evaluator.swift; sourceTree = SOURCE_ROOT; };
+		97AE4543195FBB7100EB4022 /* AlphaBetaAI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlphaBetaAI.swift; sourceTree = "<group>"; };
+		97AE4545195FBB8200EB4022 /* Evaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Evaluator.swift; sourceTree = "<group>"; };
 		FE254B9419596E0A0066BBB7 /* Hack2048.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hack2048.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE254B9819596E0A0066BBB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE254B9919596E0A0066BBB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -222,7 +224,8 @@
 		FE254BB91959716D0066BBB7 /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				97AE4541195FB66400EB4022 /* Evaluator.swift */,
+				97AE4545195FBB8200EB4022 /* Evaluator.swift */,
+				97AE4543195FBB7100EB4022 /* AlphaBetaAI.swift */,
 			);
 			path = libs;
 			sourceTree = "<group>";
@@ -453,11 +456,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE254BBC1959716D0066BBB7 /* ViewController.swift in Sources */,
+				97AE4546195FBB8200EB4022 /* Evaluator.swift in Sources */,
+				97AE4544195FBB7100EB4022 /* AlphaBetaAI.swift in Sources */,
 				FED4766B195C200E005F03BC /* GameViewController.swift in Sources */,
 				9771518A195EDCC00012B786 /* Board.swift in Sources */,
 				97A8BC35195EDBE50075644A /* TileLabel.swift in Sources */,
 				FE254B9A19596E0A0066BBB7 /* AppDelegate.swift in Sources */,
-				97AE4542195FB66400EB4022 /* Evaluator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

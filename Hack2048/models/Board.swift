@@ -8,7 +8,6 @@
 
 import UIKit
 
-//typealias Point = (x:Int, y:Int)
 typealias Point = Dictionary<String, Int>
 typealias Points = Array<Point>
 
@@ -26,6 +25,7 @@ class Board: NSObject {
             rawBoard += Int[](count: boardSize, repeatedValue: 0)
             movementBoard += Points(count:boardSize, repeatedValue:["x":0, "y":0])
         }
+        updateLog += rawBoard.copy()
     }
     
     // start a new game
@@ -35,32 +35,37 @@ class Board: NSObject {
                 rawBoard[y][x] = 0
             }
         }
+        updateLog = Int[][][]()
+        updateLog += rawBoard.copy()
+        turn = 0
     }
     
-    func swipeBoard(dir:Direction) -> Bool {
+    func swipeBoard(dir:Direction, virtual:Bool = false) -> Bool {
         var isChanged = false
         for line in 0..boardSize {
             let swipedLine:Dictionary<String, Int>[]? = self.swipeLine(line, dir:dir)
             
-            if let l = swipedLine? {
+            if let l = swipedLine {
                 isChanged = true
-                for (idx,num) in enumerate(l) {
-                    switch dir {
-                    case .Right:
-                        movementBoard[line][boardSize-1-num["from"]!] = ["x":boardSize-1-num["to"]!, "y":line]
-                        rawBoard[line][boardSize-1-idx] = num["num"]!
-                    case .Left:
-                        movementBoard[line][num["from"]!] = ["x":num["to"]!, "y":line]
-                        rawBoard[line][idx] = num["num"]!
-                    case .Up:
-                        movementBoard[num["from"]!][line] = ["x":line, "y":num["to"]!]
-                        rawBoard[idx][line] = num["num"]!
-                    case .Down:
-                        movementBoard[boardSize-1-num["from"]!][line] = ["x":line, "y":boardSize-1-num["to"]!]
-                        rawBoard[boardSize-1-idx][line] = num["num"]!
+                if !virtual {
+                    for (idx,num) in enumerate(l) {
+                        switch dir {
+                        case .Right:
+                            movementBoard[line][boardSize-1-num["from"]!] = ["x":boardSize-1-num["to"]!, "y":line]
+                            rawBoard[line][boardSize-1-idx] = num["num"]!
+                        case .Left:
+                            movementBoard[line][num["from"]!] = ["x":num["to"]!, "y":line]
+                            rawBoard[line][idx] = num["num"]!
+                        case .Up:
+                            movementBoard[num["from"]!][line] = ["x":line, "y":num["to"]!]
+                            rawBoard[idx][line] = num["num"]!
+                        case .Down:
+                            movementBoard[boardSize-1-num["from"]!][line] = ["x":line, "y":boardSize-1-num["to"]!]
+                            rawBoard[boardSize-1-idx][line] = num["num"]!
+                        }
                     }
                 }
-            } else {
+            } else if(!virtual) {
                 for i in 0..boardSize {
                     switch dir {
                     case .Right, .Left:
@@ -71,10 +76,12 @@ class Board: NSObject {
                 }
             }
         }
-        
+    
         if isChanged {
-            updateLog += rawBoard.copy()
-            ++turn
+            if !virtual{
+                updateLog += rawBoard.copy()
+                ++turn
+            }
             return true
         }
         else { return false }
@@ -170,16 +177,30 @@ class Board: NSObject {
         let x = randomPos % boardSize
         rawBoard[y][x] = 2
         
+        updateLog += rawBoard.copy()
+        ++turn
+        
         return randomPos
     }
     
     func undo(){
         if(turn > 0){
-            rawBoard = self.updateLog[turn-2].copy()
-            self.updateLog.removeAtIndex(turn-1)
-            self.generateNumber()
+            rawBoard = self.updateLog[turn-1].copy()
+            self.updateLog.removeAtIndex(turn)
             --turn
         }
+    }
+    
+    // where can the board swipe?
+    func swipableDirections() -> Direction[]{
+        
+        var results = Direction[]()
+        for dir in [Direction.Left, Direction.Down, Direction.Right, Direction.Up]{
+            if swipeBoard(dir, virtual:true){
+                results += dir
+            }
+        }
+        return results
     }
     
     func isGameOver() -> Bool{
@@ -193,8 +214,7 @@ class Board: NSObject {
         }
         
         for dir in [Direction.Right, Direction.Up]{
-            if swipeBoard(dir){
-                self.undo()
+            if swipeBoard(dir, virtual:true){
                 return false
             }
         }

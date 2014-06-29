@@ -22,7 +22,21 @@ enum Direction {
             return UISwipeGestureRecognizerDirection.Down.value
         }
     }
+    func string() -> String {
+        switch self{
+        case .Right:
+            return "Right"
+        case .Left:
+            return "Left"
+        case .Up:
+            return "Up"
+        case .Down:
+            return "Down"
+        }
+    }
 }
+
+let AIMode = true
 
 class GameViewController: UIViewController {
     @IBOutlet var boardView: UIView
@@ -43,7 +57,6 @@ class GameViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews(){
-        println(__FUNCTION__)
         for y in 0..board.boardSize {
             for x in 0..board.boardSize {
                 let tileSize:CGFloat = boardView.frame.size.width / CGFloat(board.boardSize)
@@ -54,6 +67,11 @@ class GameViewController: UIViewController {
         }
         let generatedPos = board.generateNumber()
         tiles[generatedPos].setNumber(2)
+        
+        if AIMode {
+            AlphaBetaAI.swipe(board)
+            self.updateStatus()
+        }
     }
     
     /*
@@ -91,16 +109,13 @@ class GameViewController: UIViewController {
                 let pos = board.movementBoard[y][x]
                 if pos["x"] != x || pos["y"] != y {
                     self.view.bringSubviewToFront(self.tiles[idx])
-                    UIView.animateWithDuration(0.2, animations:
-                        { () in
-                            self.tiles[idx].moveTo(pos)
-                        }, completion: {(Bool) in })
+                    UIView.animateWithDuration(0.01, animations: { self.tiles[idx].moveTo(pos) }, completion: {(Bool) in })
                 }
             }
         }
         
         // after 0.25 seconds
-        let timer = NSTimer.scheduledTimerWithTimeInterval(0.25, target: self, selector: Selector("updateScreen:"), userInfo: nil, repeats: false)
+        let timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: Selector("updateScreen:"), userInfo: nil, repeats: false)
     }
     
     func updateScreen(timer:NSTimer){
@@ -128,6 +143,9 @@ class GameViewController: UIViewController {
         
         if board.isGameOver() {
             println("GameOver")
+        }else if AIMode{
+            AlphaBetaAI.swipe(board)
+            self.updateStatus()
         }
     }
 }

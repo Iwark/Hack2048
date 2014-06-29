@@ -17,8 +17,4 @@ let APP_SIZE = UIScreen.mainScreen().applicationFrame.size
         self.layer.cornerRadius = radius
     } }
     
-    var p:CGFloat = 20.0 { didSet {
-        self.center = CGPointMake(APP_SIZE.width/2, APP_SIZE.height/2)
-    } }
-    
 }
