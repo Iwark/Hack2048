@@ -74,7 +74,6 @@ class GameViewController: UIViewController {
         }
         
         if isSwiped {
-            ++board.turn
             self.updateStatus()
         } else {
             animating = false;
@@ -126,5 +125,9 @@ class GameViewController: UIViewController {
         tiles[generatedPos].setNumber(2)
         
         animating = false;
+        
+        if board.isGameOver() {
+            println("GameOver")
+        }
     }
 }

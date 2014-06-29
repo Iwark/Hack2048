@@ -18,7 +18,7 @@ class Board: NSObject {
     var rawBoard = Int[][]()  // board state
     var movementBoard = Points[]()
     var turn:Int = 0
-    var updateLog = Int[][][][]()  // board history
+    var updateLog = Int[][][]()  // board history
     
     init(){
         super.init()
@@ -72,9 +72,11 @@ class Board: NSObject {
             }
         }
         
-        println(rawBoard)
-        
-        if isChanged { return true }
+        if isChanged {
+            updateLog += rawBoard.copy()
+            ++turn
+            return true
+        }
         else { return false }
         
     }
@@ -171,32 +173,33 @@ class Board: NSObject {
         return randomPos
     }
     
-//    func undo(){
-//        if(turn > 0){
-//            rawBoard = self.updateLog[turn-1][0].copy()
-//            self.updateLog.removeAtIndex(turn)
-//        }
-//    }
+    func undo(){
+        if(turn > 0){
+            rawBoard = self.updateLog[turn-2].copy()
+            self.updateLog.removeAtIndex(turn-1)
+            self.generateNumber()
+            --turn
+        }
+    }
     
-//    func isGameOver() -> Bool{
-//        
-//        for y in 0..boardSize {
-//            for x in 0..boardSize {
-//                if(rawBoard[y][x] == 0){
-//                    return false
-//                }
-//            }
-//        }
-//        
-//        for dir in [Direction.Right, Direction.Up]{
-//            if(swipeBoard(dir)){
-//                self.undo()
-//                return false
-//            }
-//        }
-//        
-//        return true
-//        
-//    }
+    func isGameOver() -> Bool{
+        
+        for y in 0..boardSize {
+            for x in 0..boardSize {
+                if(rawBoard[y][x] == 0){
+                    return false
+                }
+            }
+        }
+        
+        for dir in [Direction.Right, Direction.Up]{
+            if swipeBoard(dir){
+                self.undo()
+                return false
+            }
+        }
+        
+        return true
+    }
     
 }
