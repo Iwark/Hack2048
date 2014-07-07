@@ -11,6 +11,16 @@ import UIKit
 typealias Point = Dictionary<String, Int>
 typealias Points = Array<Point>
 
+//class Point: NSObject {
+//    var num = 0
+//    var x:Int{
+//        get{ return num/4 }
+//    }
+//    var y:Int{
+//        get{ return num%4 }
+//    }
+//}
+
 class Board: NSObject {
    
     let boardSize = 4
@@ -175,12 +185,17 @@ class Board: NSObject {
         let randomPos = empties[Int(randomNum)]
         let y = randomPos / boardSize
         let x = randomPos % boardSize
+        
+        self.setNumber(x, y)
+        
+        return randomPos
+    }
+    
+    func setNumber(x:Int, _ y:Int) {
         rawBoard[y][x] = 2
         
         updateLog += rawBoard.copy()
         ++turn
-        
-        return randomPos
     }
     
     func undo(){
@@ -220,6 +235,67 @@ class Board: NSObject {
         }
         
         return true
+    }
+    
+    func AIswipeBoard(dir:Direction) {
+        
+        for line in 0..boardSize {
+            let swipedLine = self.AIswipeLine(line, dir:dir)
+            var idx = 0
+            for i in 0..boardSize {
+                var num = 0
+                if swipedLine.count > i {
+                    num = swipedLine[i]
+                }
+                switch dir {
+                case .Right:
+                    rawBoard[line][boardSize-1-idx] = num
+                case .Left:
+                    rawBoard[line][idx] = num
+                case .Up:
+                    rawBoard[idx][line] = num
+                case .Down:
+                    rawBoard[boardSize-1-idx][line] = num
+                }
+                ++idx
+            }
+        }
+        
+        updateLog += rawBoard.copy()
+        ++turn
+    }
+    
+    func AIswipeLine(line:Int, dir:Direction) -> Int[] {
+        
+        var numbers = Int[]()
+        for i in 0..boardSize {
+            var num = 0
+            switch dir {
+            case .Right:
+                num = rawBoard[line][boardSize-1-i]
+            case .Left:
+                num = rawBoard[line][i]
+            case .Up:
+                num = rawBoard[i][line]
+            case .Down:
+                num = rawBoard[boardSize-1-i][line]
+            }
+            if num > 0 {
+                numbers += num
+            }
+        }
+        
+        var i = 0
+        while(i < numbers.count - 1){
+            if(numbers[i] == numbers[i+1] && numbers[i] != 0){
+                numbers[i] = numbers[i] * 2
+                numbers.removeAtIndex(i+1)
+            }
+            ++i
+        }
+        
+        return numbers
+        
     }
     
 }
