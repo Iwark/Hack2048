@@ -57,9 +57,9 @@ class GameViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews(){
-        for y in 0..<board.boardSize {
-            for x in 0..<board.boardSize {
-                let tileSize:CGFloat = boardView.frame.size.width / CGFloat(board.boardSize)
+        for y in 0..<BOARD_SIZE {
+            for x in 0..<BOARD_SIZE {
+                let tileSize:CGFloat = boardView.frame.size.width / CGFloat(BOARD_SIZE)
                 let tile = TileLabel(frame:CGRectMake(tileSize * CGFloat(x), tileSize * CGFloat(y), tileSize, tileSize))
                 boardView.addSubview(tile)
                 tiles += tile
@@ -100,14 +100,14 @@ class GameViewController: UIViewController {
     
     func updateStatus(){
         // animation
-        for y in 0..<board.boardSize {
-            for x in 0..<board.boardSize {
-                let idx:Int = y * board.boardSize + x
+        for y in 0..<BOARD_SIZE {
+            for x in 0..<BOARD_SIZE {
+                let idx:Int = y * BOARD_SIZE + x
                 let text = tiles[idx].text
                 if(!text || text == ""){ continue }
                 
                 let pos = board.movementBoard[y][x]
-                if pos["x"] != x || pos["y"] != y {
+                if pos.x != x || pos.y != y {
                     self.view.bringSubviewToFront(self.tiles[idx])
                     UIView.animateWithDuration(0.01, animations: { self.tiles[idx].moveTo(pos) }, completion: {(Bool) in })
                 }
@@ -121,16 +121,16 @@ class GameViewController: UIViewController {
     func updateScreen(timer:NSTimer){
         
         // go gack tiles
-        for y in 0..<board.boardSize {
-            for x in 0..<board.boardSize {
-                let idx:Int = y * board.boardSize + x
-                tiles[idx].moveTo(["x":x,"y":y])
+        for y in 0..<BOARD_SIZE {
+            for x in 0..<BOARD_SIZE {
+                let idx:Int = y * BOARD_SIZE + x
+                tiles[idx].moveTo(Point(x,y))
             }
         }
         
-        for y in 0..<board.boardSize {
-            for x in 0..<board.boardSize {
-                let idx:Int = y * board.boardSize + x
+        for y in 0..<BOARD_SIZE {
+            for x in 0..<BOARD_SIZE {
+                let idx:Int = y * BOARD_SIZE + x
                 let num:Int = board.rawBoard[y][x]
                 tiles[idx].setNumber(num)
             }

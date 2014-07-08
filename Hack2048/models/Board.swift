@@ -8,22 +8,10 @@
 
 import UIKit
 
-typealias Point = Dictionary<String, Int>
-typealias Points = Array<Point>
-
-//class Point: NSObject {
-//    var num = 0
-//    var x:Int{
-//        get{ return num/4 }
-//    }
-//    var y:Int{
-//        get{ return num%4 }
-//    }
-//}
+let BOARD_SIZE = 4
 
 class Board: NSObject {
    
-    let boardSize = 4
     var rawBoard = [[Int]]()  // board state
     var movementBoard = [Points]()
     var turn:Int = 0
@@ -31,17 +19,17 @@ class Board: NSObject {
     
     init(){
         super.init()
-        for _ in 0..<boardSize {
-            rawBoard += [Int](count: boardSize, repeatedValue: 0)
-            movementBoard += Points(count:boardSize, repeatedValue:["x":0, "y":0])
+        for _ in 0..<BOARD_SIZE {
+            rawBoard += [Int](count: BOARD_SIZE, repeatedValue: 0)
+            movementBoard += Points(count:BOARD_SIZE, repeatedValue:Point(0, 0))
         }
         updateLog += rawBoard
     }
     
     // start a new game
     func initGame(){
-        for y in 0..<boardSize {
-            for x in 0..<boardSize {
+        for y in 0..<BOARD_SIZE {
+            for x in 0..<BOARD_SIZE {
                 rawBoard[y][x] = 0
             }
         }
@@ -52,8 +40,8 @@ class Board: NSObject {
     
     func swipeBoard(dir:Direction, virtual:Bool = false) -> Bool {
         var isChanged = false
-        for line in 0..<boardSize {
-            let swipedLine:[Dictionary<String, Int>]? = self.swipeLine(line, dir:dir)
+        for line in 0..<BOARD_SIZE {
+            let swipedLine:[[String:Int]]? = self.swipeLine(line, dir:dir)
             
             if let l = swipedLine {
                 isChanged = true
@@ -61,32 +49,32 @@ class Board: NSObject {
                     for (idx,num) in enumerate(l) {
                         switch dir {
                         case .Right:
-                            movementBoard[line][boardSize-1-num["from"]!] = ["x":boardSize-1-num["to"]!, "y":line]
-                            rawBoard[line][boardSize-1-idx] = num["num"]!
+                            movementBoard[line][BOARD_SIZE-1-num["from"]!] = Point(BOARD_SIZE-1-num["to"]!, line)
+                            rawBoard[line][BOARD_SIZE-1-idx] = num["num"]!
                         case .Left:
-                            movementBoard[line][num["from"]!] = ["x":num["to"]!, "y":line]
+                            movementBoard[line][num["from"]!] = Point(num["to"]!, line)
                             rawBoard[line][idx] = num["num"]!
                         case .Up:
-                            movementBoard[num["from"]!][line] = ["x":line, "y":num["to"]!]
+                            movementBoard[num["from"]!][line] = Point(line, num["to"]!)
                             rawBoard[idx][line] = num["num"]!
                         case .Down:
-                            movementBoard[boardSize-1-num["from"]!][line] = ["x":line, "y":boardSize-1-num["to"]!]
-                            rawBoard[boardSize-1-idx][line] = num["num"]!
+                            movementBoard[BOARD_SIZE-1-num["from"]!][line] = Point(line, BOARD_SIZE-1-num["to"]!)
+                            rawBoard[BOARD_SIZE-1-idx][line] = num["num"]!
                         }
                     }
                 }
             } else if(!virtual) {
-                for i in 0..<boardSize {
+                for i in 0..<BOARD_SIZE {
                     switch dir {
                     case .Right, .Left:
-                        movementBoard[line][i] = ["x":i, "y":line]
+                        movementBoard[line][i] = Point(i, line)
                     case .Up, .Down:
-                        movementBoard[i][line] = ["x":line, "y":i]
+                        movementBoard[i][line] = Point(line, i)
                     }
                 }
             }
         }
-    
+        
         if isChanged {
             if !virtual{
                 updateLog += rawBoard
@@ -103,21 +91,21 @@ class Board: NSObject {
         var isChanged = false
         
         var numbers = [Dictionary<String, Int>]()
-        for i in 0..<boardSize {
+        for i in 0..<BOARD_SIZE {
             switch dir {
             case .Right:
-                numbers += ["num":rawBoard[line][boardSize-1-i], "from":i, "to":i]
+                numbers += ["num":rawBoard[line][BOARD_SIZE-1-i], "from":i, "to":i]
             case .Left:
                 numbers += ["num":rawBoard[line][i], "from":i, "to":i]
             case .Up:
                 numbers += ["num":rawBoard[i][line], "from":i, "to":i]
             case .Down:
-                numbers += ["num":rawBoard[boardSize-1-i][line], "from":i, "to":i]
+                numbers += ["num":rawBoard[BOARD_SIZE-1-i][line], "from":i, "to":i]
             }
         }
         
         var num = 0
-        while num < boardSize-1 {
+        while num < BOARD_SIZE-1 {
             if(numbers[num]["num"] == 0 && numbers[num+1]["num"] > 0){
                 isChanged = true
                 numbers[num+1]["to"] = num
@@ -144,10 +132,10 @@ class Board: NSObject {
         }
         
         num = 0
-        while num < boardSize-1 {
+        while num < BOARD_SIZE-1 {
             if(numbers[num]["num"] == 0 && numbers[num+1]["num"] > 0){
                 isChanged = true
-                if(num+2 < boardSize && numbers[num+1]["to"] == numbers[num+2]["to"]){
+                if(num+2 < BOARD_SIZE && numbers[num+1]["to"] == numbers[num+2]["to"]){
                     numbers[num+2]["to"] = num
                 }
                 numbers[num+1]["to"] = num
@@ -168,10 +156,10 @@ class Board: NSObject {
     func getEmptyPositions() -> [Int]{
         var results = [Int]()
         
-        for y in 0..<boardSize {
-            for x in 0..<boardSize {
+        for y in 0..<BOARD_SIZE {
+            for x in 0..<BOARD_SIZE {
                 if(rawBoard[y][x] == 0){
-                    results += y*boardSize + x
+                    results += y*BOARD_SIZE + x
                 }
             }
         }
@@ -183,8 +171,8 @@ class Board: NSObject {
         
         let randomNum = arc4random_uniform(UInt32(empties.count))
         let randomPos = empties[Int(randomNum)]
-        let y = randomPos / boardSize
-        let x = randomPos % boardSize
+        let y = randomPos / BOARD_SIZE
+        let x = randomPos % BOARD_SIZE
         
         self.setNumber(x, y)
         
@@ -220,8 +208,8 @@ class Board: NSObject {
     
     func isGameOver() -> Bool{
         
-        for y in 0..<boardSize {
-            for x in 0..<boardSize {
+        for y in 0..<BOARD_SIZE {
+            for x in 0..<BOARD_SIZE {
                 if(rawBoard[y][x] == 0){
                     return false
                 }
@@ -238,23 +226,23 @@ class Board: NSObject {
     }
     
     func AIswipeBoard(dir:Direction) {
-        for line in 0..<boardSize {
+        for line in 0..<BOARD_SIZE {
             let swipedLine = self.AIswipeLine(line, dir:dir)
             var idx = 0
-            for i in 0..<boardSize {
+            for i in 0..<BOARD_SIZE {
                 var num = 0
                 if swipedLine.count > i {
                     num = swipedLine[i]
                 }
                 switch dir {
                 case .Right:
-                    rawBoard[line][boardSize-1-idx] = num
+                    rawBoard[line][BOARD_SIZE-1-idx] = num
                 case .Left:
                     rawBoard[line][idx] = num
                 case .Up:
                     rawBoard[idx][line] = num
                 case .Down:
-                    rawBoard[boardSize-1-idx][line] = num
+                    rawBoard[BOARD_SIZE-1-idx][line] = num
                 }
                 ++idx
             }
@@ -267,17 +255,17 @@ class Board: NSObject {
     func AIswipeLine(line:Int, dir:Direction) -> [Int] {
         
         var numbers = [Int]()
-        for i in 0..<boardSize {
+        for i in 0..<BOARD_SIZE {
             var num = 0
             switch dir {
             case .Right:
-                num = rawBoard[line][boardSize-1-i]
+                num = rawBoard[line][BOARD_SIZE-1-i]
             case .Left:
                 num = rawBoard[line][i]
             case .Up:
                 num = rawBoard[i][line]
             case .Down:
-                num = rawBoard[boardSize-1-i][line]
+                num = rawBoard[BOARD_SIZE-1-i][line]
             }
             if num > 0 {
                 numbers += num

@@ -62,8 +62,8 @@ class AlphaBetaAI: NSObject {
             
             let emptyPositions = board.getEmptyPositions()
             for pos in emptyPositions {
-                let y = pos / board.boardSize
-                let x = pos % board.boardSize
+                let y = pos / BOARD_SIZE
+                let x = pos % BOARD_SIZE
                 board.setNumber(x, y)
                 let score = minmax(board, limit: limit-1).0
                 board.undo()
@@ -107,8 +107,8 @@ class AlphaBetaAI: NSObject {
             var newBeta = beta
             let emptyPositions = board.getEmptyPositions()
             for pos in emptyPositions {
-                let y = pos / board.boardSize
-                let x = pos % board.boardSize
+                let y = pos / BOARD_SIZE
+                let x = pos % BOARD_SIZE
                 board.setNumber(x, y)
                 newBeta = alphabeta(board, limit: limit-1, alpha:alpha, beta:newBeta).0
                 board.undo()
@@ -161,8 +161,8 @@ class AlphaBetaAI: NSObject {
 //        if board.turn % 2 == 0 {
 //            let emptyPositions = board.getEmptyPositions()
 //            for pos in emptyPositions {
-//                let y = pos / board.boardSize
-//                let x = pos % board.boardSize
+//                let y = pos / BOARD_SIZE
+//                let x = pos % BOARD_SIZE
 //                board.setNumber(x, y)
 //                let val = alphabeta(board, limit: limit-1, alpha: newAlpha, beta: newBeta)
 //                board.undo()

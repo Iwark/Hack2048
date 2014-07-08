@@ -83,7 +83,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="boardView" destination="CD6-52-9gR" id="sWc-Bi-qeU"/>
+                        <outlet property="boardView" destination="CD6-52-9gR" id="Cfc-Oi-IEq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yHH-UD-8fv" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -17,10 +17,10 @@ class Evaluator: NSObject {
         }
         
         var score = 0
-        for y in 0..<board.boardSize {
-            for x in 0..<board.boardSize {
-                if x%(board.boardSize-1) == 0 { score += board.rawBoard[y][x] * 2 }
-                if y%(board.boardSize-1) == 0 { score += board.rawBoard[y][x] * 2 }
+        for y in 0..<BOARD_SIZE {
+            for x in 0..<BOARD_SIZE {
+                if x%(BOARD_SIZE-1) == 0 { score += board.rawBoard[y][x] * 2 }
+                if y%(BOARD_SIZE-1) == 0 { score += board.rawBoard[y][x] * 2 }
                 score -= board.rawBoard[y][x]
             }
         }
