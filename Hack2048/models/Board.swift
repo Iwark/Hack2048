@@ -24,36 +24,36 @@ typealias Points = Array<Point>
 class Board: NSObject {
    
     let boardSize = 4
-    var rawBoard = Int[][]()  // board state
-    var movementBoard = Points[]()
+    var rawBoard = [[Int]]()  // board state
+    var movementBoard = [Points]()
     var turn:Int = 0
-    var updateLog = Int[][][]()  // board history
+    var updateLog = [[[Int]]]()  // board history
     
     init(){
         super.init()
-        for _ in 0..boardSize {
-            rawBoard += Int[](count: boardSize, repeatedValue: 0)
+        for _ in 0..<boardSize {
+            rawBoard += [Int](count: boardSize, repeatedValue: 0)
             movementBoard += Points(count:boardSize, repeatedValue:["x":0, "y":0])
         }
-        updateLog += rawBoard.copy()
+        updateLog += rawBoard
     }
     
     // start a new game
     func initGame(){
-        for y in 0..boardSize {
-            for x in 0..boardSize {
+        for y in 0..<boardSize {
+            for x in 0..<boardSize {
                 rawBoard[y][x] = 0
             }
         }
-        updateLog = Int[][][]()
-        updateLog += rawBoard.copy()
+        updateLog = [[[Int]]]()
+        updateLog += rawBoard
         turn = 0
     }
     
     func swipeBoard(dir:Direction, virtual:Bool = false) -> Bool {
         var isChanged = false
-        for line in 0..boardSize {
-            let swipedLine:Dictionary<String, Int>[]? = self.swipeLine(line, dir:dir)
+        for line in 0..<boardSize {
+            let swipedLine:[Dictionary<String, Int>]? = self.swipeLine(line, dir:dir)
             
             if let l = swipedLine {
                 isChanged = true
@@ -76,7 +76,7 @@ class Board: NSObject {
                     }
                 }
             } else if(!virtual) {
-                for i in 0..boardSize {
+                for i in 0..<boardSize {
                     switch dir {
                     case .Right, .Left:
                         movementBoard[line][i] = ["x":i, "y":line]
@@ -89,7 +89,7 @@ class Board: NSObject {
     
         if isChanged {
             if !virtual{
-                updateLog += rawBoard.copy()
+                updateLog += rawBoard
                 ++turn
             }
             return true
@@ -98,12 +98,12 @@ class Board: NSObject {
         
     }
     
-    func swipeLine(line:Int, dir:Direction) -> Dictionary<String, Int>[]? {
+    func swipeLine(line:Int, dir:Direction) -> [Dictionary<String, Int>]? {
         
         var isChanged = false
         
-        var numbers = Dictionary<String, Int>[]()
-        for i in 0..boardSize {
+        var numbers = [Dictionary<String, Int>]()
+        for i in 0..<boardSize {
             switch dir {
             case .Right:
                 numbers += ["num":rawBoard[line][boardSize-1-i], "from":i, "to":i]
@@ -165,11 +165,11 @@ class Board: NSObject {
         
     }
     
-    func getEmptyPositions() -> Int[]{
-        var results = Int[]()
+    func getEmptyPositions() -> [Int]{
+        var results = [Int]()
         
-        for y in 0..boardSize {
-            for x in 0..boardSize {
+        for y in 0..<boardSize {
+            for x in 0..<boardSize {
                 if(rawBoard[y][x] == 0){
                     results += y*boardSize + x
                 }
@@ -179,7 +179,7 @@ class Board: NSObject {
     }
     
     func generateNumber() -> Int{
-        let empties:Int[] = self.getEmptyPositions()
+        let empties = self.getEmptyPositions()
         
         let randomNum = arc4random_uniform(UInt32(empties.count))
         let randomPos = empties[Int(randomNum)]
@@ -194,22 +194,22 @@ class Board: NSObject {
     func setNumber(x:Int, _ y:Int) {
         rawBoard[y][x] = 2
         
-        updateLog += rawBoard.copy()
+        updateLog += rawBoard
         ++turn
     }
     
     func undo(){
         if(turn > 0){
-            rawBoard = self.updateLog[turn-1].copy()
+            rawBoard = self.updateLog[turn-1]
             self.updateLog.removeAtIndex(turn)
             --turn
         }
     }
     
     // where can the board swipe?
-    func swipableDirections() -> Direction[]{
+    func swipableDirections() -> [Direction]{
         
-        var results = Direction[]()
+        var results = [Direction]()
         for dir in [Direction.Left, Direction.Down, Direction.Right, Direction.Up]{
             if swipeBoard(dir, virtual:true){
                 results += dir
@@ -220,8 +220,8 @@ class Board: NSObject {
     
     func isGameOver() -> Bool{
         
-        for y in 0..boardSize {
-            for x in 0..boardSize {
+        for y in 0..<boardSize {
+            for x in 0..<boardSize {
                 if(rawBoard[y][x] == 0){
                     return false
                 }
@@ -238,11 +238,10 @@ class Board: NSObject {
     }
     
     func AIswipeBoard(dir:Direction) {
-        
-        for line in 0..boardSize {
+        for line in 0..<boardSize {
             let swipedLine = self.AIswipeLine(line, dir:dir)
             var idx = 0
-            for i in 0..boardSize {
+            for i in 0..<boardSize {
                 var num = 0
                 if swipedLine.count > i {
                     num = swipedLine[i]
@@ -261,14 +260,14 @@ class Board: NSObject {
             }
         }
         
-        updateLog += rawBoard.copy()
+        updateLog += rawBoard
         ++turn
     }
     
-    func AIswipeLine(line:Int, dir:Direction) -> Int[] {
+    func AIswipeLine(line:Int, dir:Direction) -> [Int] {
         
-        var numbers = Int[]()
-        for i in 0..boardSize {
+        var numbers = [Int]()
+        for i in 0..<boardSize {
             var num = 0
             switch dir {
             case .Right:

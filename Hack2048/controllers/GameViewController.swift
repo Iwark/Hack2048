@@ -41,14 +41,14 @@ let AIMode = true
 class GameViewController: UIViewController {
     @IBOutlet var boardView: UIView
     let board = Board()
-    var tiles = TileLabel[]()
+    var tiles = [TileLabel]()
     var animating = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // add swipe gesture
-        let dirs:UISwipeGestureRecognizerDirection[] = [.Right, .Left, .Up, .Down]
+        let dirs:[UISwipeGestureRecognizerDirection] = [.Right, .Left, .Up, .Down]
         for dir in dirs{
             let sgr = UISwipeGestureRecognizer(target: self, action: Selector("swiped:"))
             sgr.direction = dir
@@ -57,8 +57,8 @@ class GameViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews(){
-        for y in 0..board.boardSize {
-            for x in 0..board.boardSize {
+        for y in 0..<board.boardSize {
+            for x in 0..<board.boardSize {
                 let tileSize:CGFloat = boardView.frame.size.width / CGFloat(board.boardSize)
                 let tile = TileLabel(frame:CGRectMake(tileSize * CGFloat(x), tileSize * CGFloat(y), tileSize, tileSize))
                 boardView.addSubview(tile)
@@ -83,7 +83,7 @@ class GameViewController: UIViewController {
         
         var isSwiped = false
         
-        let dirs:Direction[] = [.Right, .Left, .Up, .Down]
+        let dirs:[Direction] = [.Right, .Left, .Up, .Down]
         for dir in dirs{
             if dir.swipeDir() == sender.direction.value{
                 isSwiped = board.swipeBoard(dir)
@@ -100,8 +100,8 @@ class GameViewController: UIViewController {
     
     func updateStatus(){
         // animation
-        for y in 0..board.boardSize {
-            for x in 0..board.boardSize {
+        for y in 0..<board.boardSize {
+            for x in 0..<board.boardSize {
                 let idx:Int = y * board.boardSize + x
                 let text = tiles[idx].text
                 if(!text || text == ""){ continue }
@@ -121,15 +121,15 @@ class GameViewController: UIViewController {
     func updateScreen(timer:NSTimer){
         
         // go gack tiles
-        for y in 0..board.boardSize {
-            for x in 0..board.boardSize {
+        for y in 0..<board.boardSize {
+            for x in 0..<board.boardSize {
                 let idx:Int = y * board.boardSize + x
                 tiles[idx].moveTo(["x":x,"y":y])
             }
         }
         
-        for y in 0..board.boardSize {
-            for x in 0..board.boardSize {
+        for y in 0..<board.boardSize {
+            for x in 0..<board.boardSize {
                 let idx:Int = y * board.boardSize + x
                 let num:Int = board.rawBoard[y][x]
                 tiles[idx].setNumber(num)

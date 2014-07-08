@@ -16,12 +16,11 @@
 		FE254BA119596E0A0066BBB7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE254BA019596E0A0066BBB7 /* Images.xcassets */; };
 		FE254BAD19596E0A0066BBB7 /* Hack2048Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE254BAC19596E0A0066BBB7 /* Hack2048Tests.swift */; };
 		FE254BBC1959716D0066BBB7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE254BB71959716D0066BBB7 /* ViewController.swift */; };
-		FE254BC719597AEC0066BBB7 /* LiveRendering.h in Headers */ = {isa = PBXBuildFile; fileRef = FE254BC619597AEC0066BBB7 /* LiveRendering.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FE254BCD19597AEC0066BBB7 /* LiveRendering.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE254BC219597AEC0066BBB7 /* LiveRendering.framework */; };
-		FE254BD419597AEC0066BBB7 /* LiveRenderingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE254BD319597AEC0066BBB7 /* LiveRenderingTests.swift */; };
 		FE254BD719597AEC0066BBB7 /* LiveRendering.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE254BC219597AEC0066BBB7 /* LiveRendering.framework */; };
 		FE254BD819597AEC0066BBB7 /* LiveRendering.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FE254BC219597AEC0066BBB7 /* LiveRendering.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		FE254BEB19597F110066BBB7 /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE254BEA19597F110066BBB7 /* StartButton.swift */; };
+		FEAD23AC196BC6BA000104AA /* StartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE254BEA19597F110066BBB7 /* StartButton.swift */; };
 		FED4766B195C200E005F03BC /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED4766A195C200E005F03BC /* GameViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +67,13 @@
 			remoteGlobalIDString = FE254BC119597AEC0066BBB7;
 			remoteInfo = LiveRendering;
 		};
+		FEAD23AD196BC712000104AA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FE254B8C19596E0A0066BBB7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FE254BC119597AEC0066BBB7;
+			remoteInfo = LiveRendering;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -99,12 +105,8 @@
 		FE254BAC19596E0A0066BBB7 /* Hack2048Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hack2048Tests.swift; sourceTree = "<group>"; };
 		FE254BB71959716D0066BBB7 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FE254BC219597AEC0066BBB7 /* LiveRendering.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LiveRendering.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FE254BC519597AEC0066BBB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FE254BC619597AEC0066BBB7 /* LiveRendering.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiveRendering.h; sourceTree = "<group>"; };
 		FE254BCC19597AEC0066BBB7 /* LiveRenderingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiveRenderingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FE254BD219597AEC0066BBB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FE254BD319597AEC0066BBB7 /* LiveRenderingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveRenderingTests.swift; sourceTree = "<group>"; };
-		FE254BEA19597F110066BBB7 /* StartButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartButton.swift; sourceTree = "<group>"; };
+		FE254BEA19597F110066BBB7 /* StartButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StartButton.swift; path = ../../LiveRendering/StartButton.swift; sourceTree = "<group>"; };
 		FED4766A195C200E005F03BC /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,8 +149,6 @@
 			children = (
 				FE254B9619596E0A0066BBB7 /* Hack2048 */,
 				FE254BA919596E0A0066BBB7 /* Hack2048Tests */,
-				FE254BC319597AEC0066BBB7 /* LiveRendering */,
-				FE254BD019597AEC0066BBB7 /* LiveRenderingTests */,
 				FE254B9519596E0A0066BBB7 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -241,44 +241,10 @@
 		FE254BBB1959716D0066BBB7 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				FE254BEA19597F110066BBB7 /* StartButton.swift */,
 				97A8BC34195EDBE50075644A /* TileLabel.swift */,
 			);
 			path = views;
-			sourceTree = "<group>";
-		};
-		FE254BC319597AEC0066BBB7 /* LiveRendering */ = {
-			isa = PBXGroup;
-			children = (
-				FE254BEA19597F110066BBB7 /* StartButton.swift */,
-				FE254BC619597AEC0066BBB7 /* LiveRendering.h */,
-				FE254BC419597AEC0066BBB7 /* Supporting Files */,
-			);
-			path = LiveRendering;
-			sourceTree = "<group>";
-		};
-		FE254BC419597AEC0066BBB7 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				FE254BC519597AEC0066BBB7 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		FE254BD019597AEC0066BBB7 /* LiveRenderingTests */ = {
-			isa = PBXGroup;
-			children = (
-				FE254BD319597AEC0066BBB7 /* LiveRenderingTests.swift */,
-				FE254BD119597AEC0066BBB7 /* Supporting Files */,
-			);
-			path = LiveRenderingTests;
-			sourceTree = "<group>";
-		};
-		FE254BD119597AEC0066BBB7 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				FE254BD219597AEC0066BBB7 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,7 +254,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE254BC719597AEC0066BBB7 /* LiveRendering.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,6 +330,7 @@
 				FE254BCF19597AEC0066BBB7 /* PBXTargetDependency */,
 				FE254BE319597AED0066BBB7 /* PBXTargetDependency */,
 				FE254BE519597AEE0066BBB7 /* PBXTargetDependency */,
+				FEAD23AE196BC712000104AA /* PBXTargetDependency */,
 			);
 			name = LiveRenderingTests;
 			productName = LiveRenderingTests;
@@ -461,6 +427,7 @@
 				FED4766B195C200E005F03BC /* GameViewController.swift in Sources */,
 				9771518A195EDCC00012B786 /* Board.swift in Sources */,
 				97A8BC35195EDBE50075644A /* TileLabel.swift in Sources */,
+				FEAD23AC196BC6BA000104AA /* StartButton.swift in Sources */,
 				FE254B9A19596E0A0066BBB7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -485,7 +452,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE254BD419597AEC0066BBB7 /* LiveRenderingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -521,6 +487,11 @@
 			isa = PBXTargetDependency;
 			target = FE254BC119597AEC0066BBB7 /* LiveRendering */;
 			targetProxy = FE254BE419597AEE0066BBB7 /* PBXContainerItemProxy */;
+		};
+		FEAD23AE196BC712000104AA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FE254BC119597AEC0066BBB7 /* LiveRendering */;
+			targetProxy = FEAD23AD196BC712000104AA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

@@ -26,17 +26,17 @@ class AlphaBetaAI: NSObject {
             return
         }
         
-        var maxScore = 0
+//        var maxScore = 0
 //        var maxDir = minmax(board, limit: 3).1
         var maxDir = alphabeta(board, limit: 3, alpha: Int.min, beta: Int.max).1
         
-        for dir in swipableDirections {
-            board.swipeBoard(dir)
-            let score = Evaluator.evaluate(board)
-            board.undo()
-            
-            if score > maxScore { maxScore = score; maxDir = dir }
-        }
+//        for dir in swipableDirections {
+//            board.swipeBoard(dir)
+//            let score = Evaluator.evaluate(board)
+//            board.undo()
+//            
+//            if score > maxScore { maxScore = score; maxDir = dir }
+//        }
 
         board.swipeBoard(maxDir)
         
@@ -92,10 +92,9 @@ class AlphaBetaAI: NSObject {
     
     class func alphabeta(board:Board, limit:Int, alpha:Int, beta:Int) -> (Int, Direction) {
         
-        let swipableDirections = board.swipableDirections()
         var maxDir = Direction.Right
-        
-        // if gameover -> return
+
+        let swipableDirections = board.swipableDirections()
         if swipableDirections.count == 0 {
             return (Evaluator.evaluate(board), maxDir)
         }
@@ -121,8 +120,8 @@ class AlphaBetaAI: NSObject {
                     return (alpha, maxDir)
                 }
             }
-            println("turn: \(board.turn), beta: \(beta)")
-            return (beta, maxDir)
+            println("turn: \(board.turn), beta: \(newBeta)")
+            return (newBeta, maxDir)
         } else {
             var max = Int.min
             var newAlpha = alpha
